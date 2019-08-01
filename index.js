@@ -1,7 +1,7 @@
 const { readFile } = require('fs').promises
 const path = require('path')
 
-module.exports = async (f) => {
+const pathResolver = async (f) => {
   const filename = path.isAbsolute(f) ? f : path.resolve(process.cwd(), f)
   const pattern = /require\s*\(\s*(".*"|'.*')\s*\)/g
   const requires = new Set()
@@ -25,4 +25,21 @@ module.exports = async (f) => {
   }
 
   return content
+}
+
+module.exports = pathResolver
+
+if (require.main === module) {
+  const inputs = process.argv.slice(2)
+
+  if (inputs.length) {
+    Promise.all(inputs.map(pathResolver))
+      .then(contents => {
+        console.log(contents.join('\n'))
+      })
+      .catch(error => {
+        console.error(error)
+        process.exit(1)
+      })
+  }
 }
