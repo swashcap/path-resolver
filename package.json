@@ -1,0 +1,17 @@
+{
+  "author": "Cory Reed",
+  "bin": "index.js",
+  "description": "Fix require path resolution",
+  "devDependencies": {
+    "standard": "^13.1.0",
+    "tape": "^4.11.0"
+  },
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "name": "path-resolver",
+  "scripts": {
+    "lint": "standard '*.js' 'tests/**/*.js'",
+    "test": "tape tests/index.js"
+  },
+  "version": "1.0.0"
+}
